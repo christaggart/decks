@@ -99,7 +99,7 @@ floor, ceil,
 					<h1>No time for that.</h1>
 				</section>		
 				<section>
-						<h1>Preprocess it.</h1>
+						<h1>Pre-process it.</h1>
 				</section>
                 <section>
                     <ul>
@@ -169,16 +169,27 @@ h1, h2, h3, h4, h5 {
                         <h2>+  -  *  / %</h2>
                     </section>
                      <section>
-                        <pre><code>$primaryColour: #ba4a55;
-$secondaryColour: #fff;
+                        It's just math.
+                        <pre><code>// Return an em based value for suggested pixels
 
-a {
-    color:$primaryColour;
-
-    &:hover {
-        color:$primaryColour 
-    }
+@function ems ( $size, $context: 16px ) {
+    @return ( $size / $context ) * 1em;
 }
+
+.lead {
+    font-size:ems(20px);
+}
+
+                        </code></pre>
+                    </section>
+                     <section>
+                        Output
+                        <pre><code>
+.lead {
+    font-size: 1.25em;
+}
+        
+
                         </code></pre>
                     </section>
                     <section>
@@ -205,10 +216,10 @@ a {
                                                     <pre><code>.some-div {
     background-color:$red;
 
-    &.some-child {
+    & .some-child {
         background-color:$blue;
 
-        &a {
+        & a {
             color:#eeeeee;    
         }
     }
@@ -334,14 +345,16 @@ $radius: 3px;
 
                     <section>
                         Centering things
-                        <pre><code>@mixin v-center ( $height: 0px ) {
-    margin-top: - $height;
+                        <pre><code>%valignCenter {
+    position: relative;
     top: 50%;
+    @include prefix( transform, translateY( -50% ) );
 }
 
-@mixin h-center ( $width: 0px ) {
-    margin-left: - $width;
+%halignCenter {
+    position: relative;
     left: 50%;
+    @include prefix( transform, translateX( -50% ) );
 }
 </code></pre>
 </section>
@@ -424,17 +437,7 @@ nav.nav--footer {
                     <section>
                         Output
 
-                        <pre><code contenteditable>.tab-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-nav.nav--primary {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-nav.nav--footer {
+                        <pre><code contenteditable>.tab-list, nav.nav--primary, nav.nav--footer {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -463,21 +466,16 @@ nav.nav--footer {
 
 <section>
                         Great for Breakpoints
-                        <pre><code>
- @for $i from 1 through length( $containerWidths ) {
-    $containerMediaWidth: nth( $containerWidths, $i );
+                        <pre><code>$spacing: 22px;
+$breakWidthContainer1: ems( 1400px );
 
-    // Add max width based on firth list value
-    @if $i == 1 {
-        @media only screen and ( min-width: $breakWidthContainer1 ) {
+ @for $i from 1 through length( $containerWidths ) {
+        @media only screen and ( max-width: $breakWidthContainer1 ) {
             .container {
                 width: ems( $containerMediaWidth - $spacing );
             }
-                .container--grid {
-                    width: ems( $containerMediaWidth );
-                }
         }
-    }
+ }
                     </code></pre>
                     </section>
                         
