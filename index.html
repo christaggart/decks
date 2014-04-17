@@ -363,7 +363,7 @@ $radius: 3px;
                         <pre><code>$calloutWidth: 500px;
 
 .callout {
-    @include h-center( $calloutWidth );
+    @include halignCenter;
     padding: 1em;
 }
 </code></pre>
@@ -371,8 +371,12 @@ $radius: 3px;
 <section>
     Output
                         <pre><code>.callout {
-    margin-left: -500px;
+    position: relative;
+    padding: 1em;
     left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    transform: translateX(-50%);
 }
 </code></pre>
 </section>
@@ -469,13 +473,13 @@ nav.nav--footer {
                         <pre><code>$spacing: 22px;
 $breakWidthContainer1: ems( 1400px );
 
- @for $i from 1 through length( $containerWidths ) {
-        @media only screen and ( max-width: $breakWidthContainer1 ) {
-            .container {
-                width: ems( $containerMediaWidth - $spacing );
-            }
+@for $i from 1 through length( $containerWidths ) {
+    @media only screen and ( max-width: $breakWidthContainer1 ) {
+        .container {
+            width: ems( $containerMediaWidth - $spacing );
         }
- }
+    }
+}
                     </code></pre>
                     </section>
                         
